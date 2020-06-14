@@ -1,27 +1,51 @@
 function specialReverse(str, letter){
-    let start = str.indexOf(` ${letter}`)
-    console.log(start);
+    let begin = 0;
+    let end = 0;
 
-    let end = str.indexOf(" ", start+1);
-    console.log(end);
+    while(end!=str.length){
 
-    let newStr = str.slice(start, end);
-    console.log(newStr);
+        //finding start index to search
+        let start = str.indexOf(`${letter}`, begin);
+        if(start == -1)
+            break;
 
-    let arr = newStr.split();
-    console.log(arr);
+        //finding end index 
+        end = str.indexOf(" ", start+1);
+        if(end == -1){
+            end= str.length;
+            begin = end;
+        }else{
+            begin = end;
+        }
+        
+        //slicing the string to reverse
+        let newStr = str.slice(start, end);
+        
+        //splitting string into array
+        let arr = newStr.split("");
+        
+        //saving the old string before reversing 
+        let oldStr = arr.join("");
+       
+        //reversing
+        arr = arr.reverse();
 
-    arr = arr.reverse();
-    console.log(arr);
+        //joining array elements to form a string again
+        newStr = arr.join("");
 
+        str = str.replace(oldStr, newStr);
+    }
     
-    
-    
+    return str;
 }
-var str = 'My name is Aku';
-letter= 'n';
-specialReverse(str, letter);
-//split into array
-//search 
-//reverse
-//concat
+
+var str = 'peter piper picked pickled peppers';
+letter= 'p';
+
+console.log('Original String:' + ' '+ str);
+
+str = specialReverse(str, letter);
+
+console.log('Reversed String:' + ' '+ str);
+
+
